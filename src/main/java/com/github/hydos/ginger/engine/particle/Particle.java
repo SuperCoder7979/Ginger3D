@@ -63,7 +63,7 @@ public class Particle
 		float time = (float) Window.getTime() / 1000000;
 		velocity.y += Constants.gravity * gravityEffect * time;
 		Vector3f change = new Vector3f(velocity);
-		change.scale((float) time);
+		change.scale(time);
 		Vector3f.add(change, position, position);
 		distance = Vector3f.sub(camera.getPosition(), position, null).lengthSquared();
 		elapsedTime += time;

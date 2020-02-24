@@ -26,7 +26,7 @@ public class TextMeshCreator
 		Word currentWord = new Word(text.getFontSize());
 		for (char c : chars)
 		{
-			int ascii = (int) c;
+			int ascii = c;
 			if (ascii == SPACE_ASCII)
 			{
 				boolean added = currentLine.attemptToAddWord(currentWord);

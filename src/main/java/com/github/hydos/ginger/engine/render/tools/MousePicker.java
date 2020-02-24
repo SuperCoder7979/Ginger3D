@@ -59,8 +59,8 @@ public class MousePicker
 
 	private Vector3f toWorldCoords(Vector4f eyeCoords)
 	{
-		Matrix4f invertedView = Matrix4f.invert(viewMatrix, null);
-		Vector4f rayWorld = Matrix4f.transform(invertedView, eyeCoords, null);
+		Matrix4f invertedView = viewMatrix.invert();
+		Vector4f rayWorld = invertedView.transform(eyeCoords);
 		Vector3f mouseRay = new Vector3f(rayWorld.x, rayWorld.y, rayWorld.z);
 		mouseRay.normalize();
 		return mouseRay;
@@ -68,8 +68,8 @@ public class MousePicker
 
 	private Vector4f toEyeCoords(Vector4f clipCoords)
 	{
-		Matrix4f invertedProjection = Matrix4f.invert(projectionMatrix, null);
-		Vector4f eyeCoords = Matrix4f.transform(invertedProjection, clipCoords, null);
+		Matrix4f invertedProjection = projectionMatrix.invert();
+		Vector4f eyeCoords = invertedProjection.transform(clipCoords);
 		return new Vector4f(eyeCoords.x, eyeCoords.y, -1f, 0f);
 	}
 
@@ -86,7 +86,7 @@ public class MousePicker
 		Vector3f camPos = camera.getPosition();
 		Vector3f start = new Vector3f(camPos.x, camPos.y, camPos.z);
 		Vector3f scaledRay = new Vector3f(ray.x * distance, ray.y * distance, ray.z * distance);
-		return Vector3f.add(start, scaledRay, null);
+		return start.add(scaledRay);
 	}
 
 	private Vector3f binarySearch(int count, float start, float finish, Vector3f ray)
@@ -95,7 +95,7 @@ public class MousePicker
 		if (count >= RECURSION_COUNT)
 		{
 			Vector3f endPoint = getPointOnRay(ray, half);
-			Terrain terrain = getTerrain(endPoint.getX(), endPoint.getZ());
+			Terrain terrain = getTerrain(endPoint.x(), endPoint.z());
 			if (terrain != null)
 			{
 				return endPoint;
@@ -131,10 +131,10 @@ public class MousePicker
 
 	private boolean isUnderGround(Vector3f testPoint)
 	{
-		Terrain terrain = getTerrain(testPoint.getX(), testPoint.getZ());
+		Terrain terrain = getTerrain(testPoint.x(), testPoint.z());
 		float height = 0;
 		if (terrain != null)
-		{ height = terrain.getHeightOfTerrain(testPoint.getX(), testPoint.getZ()); }
+		{ height = terrain.getHeightOfTerrain(testPoint.x(), testPoint.z()); }
 		if (testPoint.y < height)
 		{
 			return true;

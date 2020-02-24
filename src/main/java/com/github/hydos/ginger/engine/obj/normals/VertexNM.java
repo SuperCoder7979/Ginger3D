@@ -39,7 +39,7 @@ public class VertexNM
 		if (tangents.isEmpty())
 		{ return; }
 		for (Vector3f tangent : tangents)
-		{ Vector3f.add(averagedTangent, tangent, averagedTangent); }
+		{ averagedTangent.add(tangent, averagedTangent); }
 		averagedTangent.normalize();
 	}
 

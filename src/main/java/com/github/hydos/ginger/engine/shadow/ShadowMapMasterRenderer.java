@@ -114,7 +114,7 @@ public class ShadowMapMasterRenderer
 	{
 		updateOrthoProjectionMatrix(box.getWidth(), box.getHeight(), box.getLength());
 		updateLightViewMatrix(lightDirection, box.getCenter());
-		Matrix4f.mul(projectionMatrix, lightViewMatrix, projectionViewMatrix);
+		projectionMatrix.mul(lightViewMatrix, projectionViewMatrix);
 		shadowFbo.bindFrameBuffer();
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT);

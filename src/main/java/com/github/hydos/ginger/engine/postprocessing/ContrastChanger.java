@@ -2,27 +2,29 @@ package com.github.hydos.ginger.engine.postprocessing;
 
 import org.lwjgl.opengl.*;
 
-public class ContrastChanger {
-	
+public class ContrastChanger
+{
 	private ImageRenderer renderer;
 	private ContrastShader shader;
-	
-	public ContrastChanger() {
+
+	public ContrastChanger()
+	{
 		shader = new ContrastShader();
 		renderer = new ImageRenderer();
 	}
-	
-	public void render(int texture) {
+
+	public void render(int texture)
+	{
 		shader.start();
 		GL13.glActiveTexture(GL13.GL_TEXTURE0);
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, texture);
 		renderer.renderQuad();
 		shader.stop();
 	}
-	
-	public void cleanUp() {
+
+	public void cleanUp()
+	{
 		renderer.cleanUp();
 		shader.cleanUp();
 	}
-	
 }

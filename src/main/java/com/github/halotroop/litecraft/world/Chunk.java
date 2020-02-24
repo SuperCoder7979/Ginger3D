@@ -25,26 +25,25 @@ public class Chunk implements TileAccess
 	private final Long2ObjectMap<Block> blocks = new Long2ObjectArrayMap<>();
 	private final List<BlockEntity> blockEntities = new ArrayList<>();
 	private boolean render = false;
-
 	public final int chunkX, chunkY, chunkZ;
 	private final int chunkStartX, chunkStartY, chunkStartZ;
 
 	@Override
 	public void setBlock(int x, int y, int z, Block block)
 	{
-		if (x > 7) x = 7;
+		if (x > 7)
+			x = 7;
 		else if (x < 0) x = 0;
-		if (y > 7) y = 7;
+		if (y > 7)
+			y = 7;
 		else if (y < 0) y = 0;
-		if (z > 7) z = 7;
+		if (z > 7)
+			z = 7;
 		else if (z < 0) z = 0;
-
 		long hash = posHash(x, y, z);
 		this.blocks.put(hash, block);
-
-		if (this.render) {
-			this.blockEntities.add(new BlockEntity(block, new Vector3f(this.chunkStartX + x, this.chunkStartY + y, this.chunkStartZ + z)));
-		}
+		if (this.render)
+		{ this.blockEntities.add(new BlockEntity(block, new Vector3f(this.chunkStartX + x, this.chunkStartY + y, this.chunkStartZ + z))); }
 	}
 
 	@Override
@@ -78,19 +77,16 @@ public class Chunk implements TileAccess
 		else if (this.render) // else if it has been changed to false
 		{
 			int length = blockEntities.size();
-
 			for (int i = length; i >= 0; --i)
-			{
-				this.blockEntities.remove(i);
-			}
+			{ this.blockEntities.remove(i); }
 		}
-
 		this.render = render;
 	}
 
 	public void render()
 	{
-		if (this.render) {
+		if (this.render)
+		{
 			// TODO @hydos pls do this
 			// TODO @hydos culling good
 		}
@@ -99,12 +95,10 @@ public class Chunk implements TileAccess
 	public boolean doRender()
 	{ return this.render; }
 
-	/**
-	 * @param x in-chunk x coordinate.
-	 * @param y in-chunk y coordinate.
-	 * @param z in-chunk z coordinate.
-	 * @return creates a long that represents a coordinate, for use as a key in maps.
-	 */
+	/** @param x in-chunk x coordinate.
+	 * @param  y in-chunk y coordinate.
+	 * @param  z in-chunk z coordinate.
+	 * @return   creates a long that represents a coordinate, for use as a key in maps. */
 	private static long posHash(int x, int y, int z)
 	{ return ((long) x & 0b111) | (((long) y & 0b111) << 3) | (((long) z & 0b111) << 6); }
 }

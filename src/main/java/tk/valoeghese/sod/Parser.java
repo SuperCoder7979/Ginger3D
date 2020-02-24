@@ -5,24 +5,22 @@ import java.util.*;
 
 import tk.valoeghese.sod.exception.SODParseException;
 
-final class Parser {
-	static BinaryData parse(DataInputStream input) throws IOException, SODParseException {
+final class Parser
+{
+	static BinaryData parse(DataInputStream input) throws IOException, SODParseException
+	{
 		BinaryData data = new BinaryData();
-
 		DataType dataType;
 		dataType = DataType.of(input.readByte());
-
-		if (dataType != DataType.SECTION) {
-			throw new SODParseException("Data must be segregated into sections!");
-		}
-
+		if (dataType != DataType.SECTION)
+		{ throw new SODParseException("Data must be segregated into sections!"); }
 		DataSection currentSection = new DataSection();
 		data.put(input.readUTF(), currentSection);
-
-		while (input.available() > 0) {
+		while (input.available() > 0)
+		{
 			dataType = DataType.of(input.readByte());
-
-			switch (dataType) {
+			switch (dataType)
+			{
 			case BYTE:
 				currentSection.writeByte(input.readByte());
 				break;
@@ -52,44 +50,54 @@ final class Parser {
 				throw new RuntimeException("This error should never be thrown! If this error occurs, the parser is not properly dealing with a most-likely-invalid data type.");
 			}
 		}
-
 		return data;
 	}
 
-	static void write(BinaryData data, DataOutputStream dos) throws IOException {
+	static void write(BinaryData data, DataOutputStream dos) throws IOException
+	{
 		dos.writeLong(0xA77D1E);
-
 		Iterator<Map.Entry<String, DataSection>> sectionStream = data.iterator();
-
-		while (sectionStream.hasNext()) {
+		while (sectionStream.hasNext())
+		{
 			Map.Entry<String, DataSection> section = sectionStream.next();
 			dos.writeByte(DataType.SECTION.id);
 			dos.writeUTF(section.getKey());
-
 			Iterator<Object> dataStream = section.getValue().iterator();
-
-			while (dataStream.hasNext()) {
+			while (dataStream.hasNext())
+			{
 				Object o = dataStream.next();
-
-				if (o instanceof Byte) {
+				if (o instanceof Byte)
+				{
 					dos.writeByte(DataType.BYTE.id);
 					dos.writeByte((byte) o);
-				} else if (o instanceof Short) {
+				}
+				else if (o instanceof Short)
+				{
 					dos.writeByte(DataType.SHORT.id);
 					dos.writeShort((short) o);
-				} else if (o instanceof Integer) {
+				}
+				else if (o instanceof Integer)
+				{
 					dos.writeByte(DataType.INT.id);
 					dos.writeInt((int) o);
-				} else if (o instanceof Long) {
+				}
+				else if (o instanceof Long)
+				{
 					dos.writeByte(DataType.LONG.id);
 					dos.writeLong((long) o);
-				} else if (o instanceof Float) {
+				}
+				else if (o instanceof Float)
+				{
 					dos.writeByte(DataType.FLOAT.id);
 					dos.writeFloat((float) o);
-				} else if (o instanceof Double) {
+				}
+				else if (o instanceof Double)
+				{
 					dos.writeByte(DataType.DOUBLE.id);
 					dos.writeDouble((double) o);
-				} else if (o instanceof String) {
+				}
+				else if (o instanceof String)
+				{
 					dos.writeByte(DataType.STRING.id);
 					dos.writeUTF((String) o);
 				}
@@ -98,7 +106,8 @@ final class Parser {
 	}
 }
 
-enum DataType {
+enum DataType
+{
 	SECTION(0),
 	BYTE(1),
 	SHORT(2),
@@ -108,14 +117,15 @@ enum DataType {
 	DOUBLE(6),
 	STRING(7);
 
-	private DataType(int id) {
-		this.id = (byte) id;
-	}
+	private DataType(int id)
+	{ this.id = (byte) id; }
 
 	public final byte id;
 
-	public static DataType of(byte id) throws SODParseException {
-		switch (id) {
+	public static DataType of(byte id) throws SODParseException
+	{
+		switch (id)
+		{
 		case 0:
 			return SECTION;
 		case 1:

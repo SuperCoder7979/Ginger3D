@@ -89,15 +89,15 @@ public class ParticleRenderer
 	{
 		Matrix4f modelMatrix = new Matrix4f();
 		Matrix4f.translate(position, modelMatrix, modelMatrix);
-		modelMatrix.m00 = viewMatrix.m00;
-		modelMatrix.m01 = viewMatrix.m10;
-		modelMatrix.m02 = viewMatrix.m20;
-		modelMatrix.m10 = viewMatrix.m01;
-		modelMatrix.m11 = viewMatrix.m11;
-		modelMatrix.m12 = viewMatrix.m21;
-		modelMatrix.m20 = viewMatrix.m02;
-		modelMatrix.m21 = viewMatrix.m12;
-		modelMatrix.m22 = viewMatrix.m22;
+		modelMatrix._m00(viewMatrix.m00());
+		modelMatrix._m01(viewMatrix.m10());
+		modelMatrix._m02(viewMatrix.m20());
+		modelMatrix._m10(viewMatrix.m01());
+		modelMatrix._m11(viewMatrix.m11());
+		modelMatrix._m12(viewMatrix.m21());
+		modelMatrix._m20(viewMatrix.m02());
+		modelMatrix._m21(viewMatrix.m12());
+		modelMatrix._m22(viewMatrix.m22());
 		Matrix4f.rotate((float) Math.toRadians(rotation), new Vector3f(0, 0, 1), modelMatrix, modelMatrix);
 		Matrix4f.scale(new Vector3f(scale, scale, scale), modelMatrix, modelMatrix);
 		Matrix4f modelViewMatrix = modelMatrix.mul(viewMatrix);
@@ -106,22 +106,22 @@ public class ParticleRenderer
 
 	private void storeMatrixData(Matrix4f matrix, float[] vboData)
 	{
-		vboData[pointer++] = matrix.m00;
-		vboData[pointer++] = matrix.m01;
-		vboData[pointer++] = matrix.m02;
-		vboData[pointer++] = matrix.m03;
-		vboData[pointer++] = matrix.m10;
-		vboData[pointer++] = matrix.m11;
-		vboData[pointer++] = matrix.m12;
-		vboData[pointer++] = matrix.m13;
-		vboData[pointer++] = matrix.m20;
-		vboData[pointer++] = matrix.m21;
-		vboData[pointer++] = matrix.m22;
-		vboData[pointer++] = matrix.m23;
-		vboData[pointer++] = matrix.m30;
-		vboData[pointer++] = matrix.m31;
-		vboData[pointer++] = matrix.m32;
-		vboData[pointer++] = matrix.m33;
+		vboData[pointer++] = matrix.m00();
+		vboData[pointer++] = matrix.m01();
+		vboData[pointer++] = matrix.m02();
+		vboData[pointer++] = matrix.m03();
+		vboData[pointer++] = matrix.m10();
+		vboData[pointer++] = matrix.m11();
+		vboData[pointer++] = matrix.m12();
+		vboData[pointer++] = matrix.m13();
+		vboData[pointer++] = matrix.m20();
+		vboData[pointer++] = matrix.m21();
+		vboData[pointer++] = matrix.m22();
+		vboData[pointer++] = matrix.m23();
+		vboData[pointer++] = matrix.m30();
+		vboData[pointer++] = matrix.m31();
+		vboData[pointer++] = matrix.m32();
+		vboData[pointer++] = matrix.m33();
 	}
 
 	private void prepare()

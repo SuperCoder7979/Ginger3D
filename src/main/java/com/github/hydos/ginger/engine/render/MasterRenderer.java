@@ -168,12 +168,12 @@ public class MasterRenderer
 		float y_scale = (float) ((1f / Math.tan(Math.toRadians(FOV / 2f))));
 		float x_scale = y_scale / aspectRatio;
 		float frustum_length = FAR_PLANE - NEAR_PLANE;
-		projectionMatrix.m00 = x_scale;
-		projectionMatrix.m11 = y_scale;
-		projectionMatrix.m22 = -((FAR_PLANE + NEAR_PLANE) / frustum_length);
-		projectionMatrix.m23 = -1;
-		projectionMatrix.m32 = -((2 * NEAR_PLANE * FAR_PLANE) / frustum_length);
-		projectionMatrix.m33 = 0;
+		projectionMatrix._m00(x_scale);
+		projectionMatrix._m11(y_scale);
+		projectionMatrix._m22(-((FAR_PLANE + NEAR_PLANE) / frustum_length));
+		projectionMatrix._m23(-1);
+		projectionMatrix._m32(-((2 * NEAR_PLANE * FAR_PLANE) / frustum_length));
+		projectionMatrix._m33(0);
 	}
 
 	public void renderGui(GuiTexture guiTexture)

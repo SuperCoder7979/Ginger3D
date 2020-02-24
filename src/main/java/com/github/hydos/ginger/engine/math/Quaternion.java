@@ -415,8 +415,8 @@ public class Quaternion extends Vector implements ReadableVector4f
 	 *           The destination quaternion, or null if a new quaternion is to be created
 	 * @return   q */
 	public static Quaternion setFromMatrix(Matrix4f m, Quaternion q)
-	{ return q.setFromMat(m.m00, m.m01, m.m02, m.m10, m.m11, m.m12, m.m20,
-		m.m21, m.m22); }
+	{ return q.setFromMat(m.m00(), m.m01(), m.m02(), m.m10(), m.m11(), m.m12(), m.m20(),
+		m.m21(), m.m22()); }
 
 	/** Sets the value of this quaternion using the rotational component of the
 	 * passed matrix.

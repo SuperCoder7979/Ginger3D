@@ -169,10 +169,10 @@ public class ShadowMapMasterRenderer
 	private void updateOrthoProjectionMatrix(float width, float height, float length)
 	{
 		projectionMatrix.identity();
-		projectionMatrix.m00 = 2f / width;
-		projectionMatrix.m11 = 2f / height;
-		projectionMatrix.m22 = -2f / length;
-		projectionMatrix.m33 = 1;
+		projectionMatrix._m00(2f / width);
+		projectionMatrix._m11(2f / height);
+		projectionMatrix._m22(-2f / length);
+		projectionMatrix._m33(1);
 	}
 
 	/** Create the offset for part of the conversion to shadow map space. This

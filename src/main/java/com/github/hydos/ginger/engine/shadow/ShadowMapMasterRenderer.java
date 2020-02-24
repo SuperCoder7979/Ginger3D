@@ -148,12 +148,11 @@ public class ShadowMapMasterRenderer
 		center.negate();
 		lightViewMatrix.identity();
 		float pitch = (float) Math.acos(new Vector2f(direction.x, direction.z).length());
-		Matrix4f.rotate(pitch, new Vector3f(1, 0, 0), lightViewMatrix, lightViewMatrix);
+		lightViewMatrix.rotate(pitch, new Vector3f(1, 0, 0), lightViewMatrix);
 		float yaw = (float) Math.toDegrees(((float) Math.atan(direction.x / direction.z)));
 		yaw = direction.z > 0 ? yaw - 180 : yaw;
-		Matrix4f.rotate((float) -Math.toRadians(yaw), new Vector3f(0, 1, 0), lightViewMatrix,
-			lightViewMatrix);
-		Matrix4f.translate(center, lightViewMatrix, lightViewMatrix);
+		lightViewMatrix.rotate((float) -Math.toRadians(yaw), new Vector3f(0, 1, 0), lightViewMatrix);
+		lightViewMatrix.translate(center, lightViewMatrix);
 	}
 
 	/** Creates the orthographic projection matrix. This projection matrix

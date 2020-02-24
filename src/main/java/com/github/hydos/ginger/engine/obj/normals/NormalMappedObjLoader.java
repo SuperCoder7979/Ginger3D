@@ -94,10 +94,10 @@ public class NormalMappedObjLoader
 		Vector2f deltaUv1 = uv1.sub(uv0);
 		Vector2f deltaUv2 = uv2.sub(uv0);
 		float r = 1.0f / (deltaUv1.x * deltaUv2.y - deltaUv1.y * deltaUv2.x);
-		delatPos1.scale(deltaUv2.y);
-		delatPos2.scale(deltaUv1.y);
+		delatPos1.mul(deltaUv2.y);
+		delatPos2.mul(deltaUv1.y);
 		Vector3f tangent = delatPos1.sub(delatPos2);
-		tangent.scale(r);
+		tangent.mul(r);
 		v0.addTangent(tangent);
 		v1.addTangent(tangent);
 		v2.addTangent(tangent);

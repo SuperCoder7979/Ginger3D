@@ -119,7 +119,7 @@ public class NormalMappingShader extends ShaderProgram
 	{
 		Vector3f position = light.getPosition();
 		Vector4f eyeSpacePos = new Vector4f(position.x, position.y, position.z, 1f);
-		Matrix4f.transform(viewMatrix, eyeSpacePos, eyeSpacePos);
+		viewMatrix.transform(eyeSpacePos, eyeSpacePos);
 		return new Vector3f(eyeSpacePos.x, eyeSpacePos.y, eyeSpacePos.z);
 	}
 

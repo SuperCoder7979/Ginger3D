@@ -62,7 +62,7 @@ public class MousePicker
 		Matrix4f invertedView = Matrix4f.invert(viewMatrix, null);
 		Vector4f rayWorld = Matrix4f.transform(invertedView, eyeCoords, null);
 		Vector3f mouseRay = new Vector3f(rayWorld.x, rayWorld.y, rayWorld.z);
-		mouseRay.normalise();
+		mouseRay.normalize();
 		return mouseRay;
 	}
 

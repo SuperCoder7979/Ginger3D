@@ -76,7 +76,7 @@ public class ParticleSystem
 		{
 			velocity = generateRandomUnitVector();
 		}
-		velocity.normalise();
+		velocity.normalize();
 		velocity.scale(generateValue(averageSpeed, speedError));
 		float scale = generateValue(averageScale, scaleError);
 		float lifeLength = generateValue(averageLifeLength, lifeError);
@@ -114,7 +114,7 @@ public class ParticleSystem
 		if (coneDirection.x != 0 || coneDirection.y != 0 || (coneDirection.z != 1 && coneDirection.z != -1))
 		{
 			Vector3f rotateAxis = Vector3f.cross(coneDirection, new Vector3f(0, 0, 1), null);
-			rotateAxis.normalise();
+			rotateAxis.normalize();
 			float rotateAngle = (float) Math.acos(Vector3f.dot(coneDirection, new Vector3f(0, 0, 1)));
 			Matrix4f rotationMatrix = new Matrix4f();
 			rotationMatrix.rotate(-rotateAngle, rotateAxis);

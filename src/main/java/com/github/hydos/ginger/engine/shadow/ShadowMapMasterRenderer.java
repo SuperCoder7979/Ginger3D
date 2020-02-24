@@ -73,7 +73,7 @@ public class ShadowMapMasterRenderer
 	 * 
 	 * @return The to-shadow-map-space matrix. */
 	public Matrix4f getToShadowMapSpaceMatrix()
-	{ return Matrix4f.mul(offset, projectionViewMatrix, null); }
+	{ return projectionViewMatrix.mul(offset); }
 
 	/** Clean up the shader and FBO on closing. */
 	public void cleanUp()
@@ -144,9 +144,9 @@ public class ShadowMapMasterRenderer
 	 *                  - the center of the "view cuboid" in world space. */
 	private void updateLightViewMatrix(Vector3f direction, Vector3f center)
 	{
-		direction.normalise();
+		direction.normalize();
 		center.negate();
-		lightViewMatrix.setIdentity();
+		lightViewMatrix.identity();
 		float pitch = (float) Math.acos(new Vector2f(direction.x, direction.z).length());
 		Matrix4f.rotate(pitch, new Vector3f(1, 0, 0), lightViewMatrix, lightViewMatrix);
 		float yaw = (float) Math.toDegrees(((float) Math.atan(direction.x / direction.z)));
@@ -168,7 +168,7 @@ public class ShadowMapMasterRenderer
 	 *               - shadow box length. */
 	private void updateOrthoProjectionMatrix(float width, float height, float length)
 	{
-		projectionMatrix.setIdentity();
+		projectionMatrix.identity();
 		projectionMatrix.m00 = 2f / width;
 		projectionMatrix.m11 = 2f / height;
 		projectionMatrix.m22 = -2f / length;

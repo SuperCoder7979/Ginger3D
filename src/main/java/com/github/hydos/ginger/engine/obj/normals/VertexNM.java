@@ -40,7 +40,7 @@ public class VertexNM
 		{ return; }
 		for (Vector3f tangent : tangents)
 		{ Vector3f.add(averagedTangent, tangent, averagedTangent); }
-		averagedTangent.normalise();
+		averagedTangent.normalize();
 	}
 
 	protected Vector3f getAverageTangent()

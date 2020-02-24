@@ -31,14 +31,10 @@
  */
 package com.github.hydos.ginger.engine.math.vectors;
 
-/**
- * @author foo
- */
-public interface ReadableVector4f extends ReadableVector3f {
-
-    /**
-     * @return w
-     */
-    float getW();
-
+/** @author foo */
+@Deprecated
+public interface ReadableVector4f extends ReadableVector3f
+{
+	/** @return w */
+	float getW();
 }

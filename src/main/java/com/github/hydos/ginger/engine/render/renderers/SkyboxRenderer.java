@@ -1,72 +1,65 @@
 package com.github.hydos.ginger.engine.render.renderers;
 
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL13;
-import org.lwjgl.opengl.GL20;
-import org.lwjgl.opengl.GL30;
+import org.joml.Matrix4f;
+import org.lwjgl.opengl.*;
 
 import com.github.hydos.ginger.engine.cameras.Camera;
-import com.github.hydos.ginger.engine.math.matrixes.Matrix4f;
 import com.github.hydos.ginger.engine.render.models.RawModel;
 import com.github.hydos.ginger.engine.render.shaders.SkyboxShader;
 import com.github.hydos.ginger.engine.utils.Loader;
 
-public class SkyboxRenderer {
-	
+public class SkyboxRenderer
+{
 	private static final float SIZE = 50f;
-	
-	private static final float[] VERTICES = {        
-	    -SIZE,  SIZE, -SIZE,
-	    -SIZE, -SIZE, -SIZE,
-	    SIZE, -SIZE, -SIZE,
-	     SIZE, -SIZE, -SIZE,
-	     SIZE,  SIZE, -SIZE,
-	    -SIZE,  SIZE, -SIZE,
-
-	    -SIZE, -SIZE,  SIZE,
-	    -SIZE, -SIZE, -SIZE,
-	    -SIZE,  SIZE, -SIZE,
-	    -SIZE,  SIZE, -SIZE,
-	    -SIZE,  SIZE,  SIZE,
-	    -SIZE, -SIZE,  SIZE,
-
-	     SIZE, -SIZE, -SIZE,
-	     SIZE, -SIZE,  SIZE,
-	     SIZE,  SIZE,  SIZE,
-	     SIZE,  SIZE,  SIZE,
-	     SIZE,  SIZE, -SIZE,
-	     SIZE, -SIZE, -SIZE,
-
-	    -SIZE, -SIZE,  SIZE,
-	    -SIZE,  SIZE,  SIZE,
-	     SIZE,  SIZE,  SIZE,
-	     SIZE,  SIZE,  SIZE,
-	     SIZE, -SIZE,  SIZE,
-	    -SIZE, -SIZE,  SIZE,
-
-	    -SIZE,  SIZE, -SIZE,
-	     SIZE,  SIZE, -SIZE,
-	     SIZE,  SIZE,  SIZE,
-	     SIZE,  SIZE,  SIZE,
-	    -SIZE,  SIZE,  SIZE,
-	    -SIZE,  SIZE, -SIZE,
-
-	    -SIZE, -SIZE, -SIZE,
-	    -SIZE, -SIZE,  SIZE,
-	     SIZE, -SIZE, -SIZE,
-	     SIZE, -SIZE, -SIZE,
-	    -SIZE, -SIZE,  SIZE,
-	     SIZE, -SIZE,  SIZE
+	private static final float[] VERTICES =
+	{
+		-SIZE, SIZE, -SIZE,
+		-SIZE, -SIZE, -SIZE,
+		SIZE, -SIZE, -SIZE,
+		SIZE, -SIZE, -SIZE,
+		SIZE, SIZE, -SIZE,
+		-SIZE, SIZE, -SIZE,
+		-SIZE, -SIZE, SIZE,
+		-SIZE, -SIZE, -SIZE,
+		-SIZE, SIZE, -SIZE,
+		-SIZE, SIZE, -SIZE,
+		-SIZE, SIZE, SIZE,
+		-SIZE, -SIZE, SIZE,
+		SIZE, -SIZE, -SIZE,
+		SIZE, -SIZE, SIZE,
+		SIZE, SIZE, SIZE,
+		SIZE, SIZE, SIZE,
+		SIZE, SIZE, -SIZE,
+		SIZE, -SIZE, -SIZE,
+		-SIZE, -SIZE, SIZE,
+		-SIZE, SIZE, SIZE,
+		SIZE, SIZE, SIZE,
+		SIZE, SIZE, SIZE,
+		SIZE, -SIZE, SIZE,
+		-SIZE, -SIZE, SIZE,
+		-SIZE, SIZE, -SIZE,
+		SIZE, SIZE, -SIZE,
+		SIZE, SIZE, SIZE,
+		SIZE, SIZE, SIZE,
+		-SIZE, SIZE, SIZE,
+		-SIZE, SIZE, -SIZE,
+		-SIZE, -SIZE, -SIZE,
+		-SIZE, -SIZE, SIZE,
+		SIZE, -SIZE, -SIZE,
+		SIZE, -SIZE, -SIZE,
+		-SIZE, -SIZE, SIZE,
+		SIZE, -SIZE, SIZE
 	};
-	
-	private static String[] TEXTURE_FILES = {"right.png", "left.png", "up.png", "down.png", "back.png", "front.png"};
-	
-	
+	private static String[] TEXTURE_FILES =
+	{
+		"right.png", "left.png", "up.png", "down.png", "back.png", "front.png"
+	};
 	private RawModel cube;
 	private int texture;
 	private SkyboxShader shader;
-	
-	public SkyboxRenderer(Matrix4f projectionMatrix) {
+
+	public SkyboxRenderer(Matrix4f projectionMatrix)
+	{
 		cube = Loader.loadToVAO(VERTICES, 3);
 		texture = Loader.loadCubeMap(TEXTURE_FILES);
 		shader = new SkyboxShader();
@@ -74,8 +67,9 @@ public class SkyboxRenderer {
 		shader.loadProjectionMatrix(projectionMatrix);
 		shader.stop();
 	}
-	
-	public void render(Camera camera) {
+
+	public void render(Camera camera)
+	{
 		shader.start();
 		shader.loadViewMatrix(camera);
 		GL30.glBindVertexArray(cube.getVaoID());
@@ -87,9 +81,7 @@ public class SkyboxRenderer {
 		GL30.glBindVertexArray(0);
 		shader.stop();
 	}
-	
-	public void cleanUp() {
-		shader.cleanUp();
-	}
-	
+
+	public void cleanUp()
+	{ shader.cleanUp(); }
 }
